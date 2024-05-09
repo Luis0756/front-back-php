@@ -5,7 +5,7 @@ $password = "root"; // Change this to your MySQL password
 $database = "root"; // Change this to your MySQL database name
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $database);
+$conn = new PDO("mysql:host={$servername};dbname={$database}");
 
 // Check connection
 if ($conn->connect_error) {
