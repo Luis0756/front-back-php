@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-           129837487234982348712398472398764192 margin: 0;
+            margin: 0;
             padding: 0;
             background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
             background-size: 600% 600%;
