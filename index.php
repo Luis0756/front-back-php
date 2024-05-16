@@ -10,8 +10,8 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="container">
-      <div class="row">
+    <div class="container" style="width: 300px">
+      <div class="row" style="width: 300px">
         <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
           <div class="card border-0 shadow rounded-3 my-5">
             <div class="card-body p-4 p-sm-5">
