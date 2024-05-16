@@ -19,7 +19,6 @@
 
                 if (isset($json['user']) && isset($json['pass'])) {
                     $usuario = $this->UsuarioModel->getUsuarioByLogin($json['user']);
-
         
                     if (isset($usuario['senha']) && password_verify($json['pass'], $usuario['senha'])) {
                         $token = $this->getNewToken($usuario['id']);
@@ -57,7 +56,7 @@
                     header('Content-Type: application/json');
                     $dados = [
                         'access' => false,
-                        'msg' => 'Parâmetros ausentes'
+                        'msg' => 'Parâmetros obrigatórios'
                     ];
                     echo json_encode($dados);
                 }
@@ -79,12 +78,4 @@
             ];
             echo json_encode($dados);
         }
-    } else {
-        http_response_code(405);
-        header('Content-Type: application/json');
-        $dados = [
-            'access' => false,
-            'msg' => 'Método não permitido'
-        ];
-        echo json_encode($dados);
     }
