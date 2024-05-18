@@ -1,45 +1,25 @@
 <?php
-
-    $host = 'localhost';
-    $dbname = 'test_db';
-    $username = 'your_username';
-    $password = 'your_password';
-
-    try {
-        // Create a PDO instance 
-        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-        // Set PDO to throw exceptions on error
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
-        // Check if the request method is POST
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Check if 'ping' parameter exists in the POST data
+    try { 
+        /*
+            Para efetuar o ping, utilize:
+            curl -X POST -d "ping=ping" http://localhost/dashboard/projeto/front-back-php/login.php
+            Ao usar o postman, utilize o 'Content-Type' como 'application/x-www-form-urlencoded' e envie "ping=ping" no corpo.
+        */
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
             if (isset($_POST['ping'])) {
-                // Check if the value of 'ping' parameter is 'ping'
                 if ($_POST['ping'] === 'ping') {
-                    // Save the 'ping' value to the database
-                    $stmt = $pdo->prepare("INSERT INTO ping_pong (ping) VALUES (:ping)");
-                    $stmt->execute(['ping' => $_POST['ping']]);
-                    
-                    // Send "pong" response
+                
                     echo "pong";
                 } else {
-                    // If 'ping' parameter has a different value, return an error
                     http_response_code(400);
-                    echo "Error: Invalid value for 'ping' parameter.";
+                    echo "Erro: valor inválido!";
                 }
             } else {
-                // If 'ping' parameter is missing, return an error
                 http_response_code(400);
-                echo "Error: 'ping' parameter is missing.";
+                echo "Erro: parâmetro 'ping' é obrigatório";
             }
-        } else {
-            // If the request method is not POST, return an error
-            http_response_code(405);
-            echo "Error: Only POST requests are allowed.";
-        }
+        } 
     } catch (PDOException $e) {
-        // If there's an error with the database connection, return an error
         http_response_code(500);
         echo "Error: " . $e->getMessage();
     }
