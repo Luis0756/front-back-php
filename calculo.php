@@ -81,35 +81,27 @@
 
     <br>
 
-    <?php
-    if(isset($_POST['calculate'])){
-        $value1 = $_POST['value1'];
-        $value2 = $_POST['value2'];
-        $operation = $_POST['operation'];
-
-        switch($operation){
-            case 'add':
-                $result = $value1 + $value2;
-                break;
-            case 'subtract':
-                $result = $value1 - $value2;
-                break;
-            case 'multiply':
-                $result = $value1 * $value2;
-                break;
-            case 'divide':
-                if($value2 != 0){
-                    $result = $value1 / $value2;
-                } else {
-                    $result = "Error: Division by zero";
+    <script>
+        function calcular() {
+            let v1 = $('#v1').val();
+            let v2 = $('#v2').val();
+            let op = $('#op').val();
+            let dados = {
+                v1: v1,
+                v2: v2,
+                op: op
+            }
+        
+            $.ajax({
+                url: 'calc.php',
+                type: 'POST',
+                //headers: headers,
+                data: dados,
+                success: function (retorno) {
+                    $('#resultado').html(retorno)
                 }
-                break;
-            default:
-                $result = "Invalid operation";
+            });
         }
-
-        echo "<label>Resultado: $result</label>";
-    }
-    ?>
+    </script>
 </body>
 </html>
