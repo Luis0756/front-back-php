@@ -83,6 +83,27 @@ class Login {
     }
 }
 
+$sql = "select *
+              from login_control
+             where idusuario = {$idusuario}
+               and now() between criado and expira
+             order by id desc
+             limit 1";
+    $stm = $pdo->prepare($sql);
+    $stm->execute();
+    $result = $stm->fetchAll(PDO::FETCH_ASSOC);
+    $log_acesso = $result[0];//incio
+    if (isset($log_acesso['token'])) {
+        $token = $log_acesso['token'];
+    } else {
+        $sql = " insert into login_control " .
+            " ( idusuario, token, criado, expira) " .
+            " values " .
+            " ( {$idusuario}, '{$token}', now(), DATE_ADD(now(), INTERVAL 12 hour)) ";
+        $stm = $pdo->prepare($sql);
+        $stm->execute();
+    }
+
 $autent = new Login();
 $autent->login();
 ?>
